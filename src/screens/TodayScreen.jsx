@@ -8,6 +8,8 @@ import {
   todayISO, weekDays, isoFromDate, formatHeaderDate, formatDayName, dateFromISO
 } from '../lib/dates'
 import { useTasksForDate, useTasksInRange, useTaskActions } from '../hooks/useTasks'
+import { useTemplates } from '../hooks/useTemplates'
+import { useTemplatePopulator } from '../hooks/useTemplatePopulator'
 
 export default function TodayScreen() {
   const today = todayISO()
@@ -17,6 +19,8 @@ export default function TodayScreen() {
 
   const { tasks } = useTasksForDate(selectedISO)
   const { createTask, toggleComplete, rescheduleTask } = useTaskActions()
+  const { templates, loading: tplLoading } = useTemplates()
+  useTemplatePopulator(selectedISO, templates, !tplLoading)
 
   // Counts for week strip
   const days = useMemo(() => weekDays(new Date()), [])
