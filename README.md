@@ -2,7 +2,9 @@
 
 A mobile-first PWA for daily task planning, recurring routines, and AI-assisted scheduling. Built as a personal productivity tool during a data analyst career transition.
 
-![Novus screenshots](https://img.shields.io/badge/PWA-installable-8b1e30) ![React](https://img.shields.io/badge/React-18-8b1e30) ![Vite](https://img.shields.io/badge/Vite-5-8b1e30) ![Firebase](https://img.shields.io/badge/Firebase-Firestore-8b1e30) ![Gemini](https://img.shields.io/badge/AI-Gemini-8b1e30)
+![PWA](https://img.shields.io/badge/PWA-installable-8b1e30) ![React](https://img.shields.io/badge/React-18-8b1e30) ![Vite](https://img.shields.io/badge/Vite-5-8b1e30) ![Firebase](https://img.shields.io/badge/Firebase-Firestore-8b1e30) ![Gemini](https://img.shields.io/badge/AI-Gemini-8b1e30)
+
+![Novus — Plan (Goals), AI chat with memory, AI week planning](./docs/screenshots/preview-goals-ai.png)
 
 ## Features
 
