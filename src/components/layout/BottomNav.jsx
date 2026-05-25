@@ -10,7 +10,7 @@ const ITEMS = [
 
 export default function BottomNav() {
   return (
-    <nav className="border-t border-black/5 bg-ivory grid grid-cols-4 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+    <nav className="md:hidden border-t border-black/5 bg-ivory grid grid-cols-4 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
       {ITEMS.map((it) => (
         <NavLink
           key={it.to}
