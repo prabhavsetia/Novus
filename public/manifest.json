@@ -1,7 +1,8 @@
 {
-  "name": "Daily Planner",
-  "short_name": "Planner",
+  "name": "Novus",
+  "short_name": "Novus",
   "description": "Your daily timetable, goals, and AI planner",
+  "version": "1.0.0",
   "theme_color": "#8b1e30",
   "background_color": "#faf8f6",
   "display": "standalone",

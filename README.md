@@ -1,6 +1,6 @@
-# Daily Planner
+# Novus
 
-A mobile-first PWA for personal daily task management. SQL/Python/Data Analyst study companion.
+> v1.0 — A mobile-first PWA for personal daily task management. SQL/Python/Data Analyst study companion.
 
 ## Features
 - Daily task list with times

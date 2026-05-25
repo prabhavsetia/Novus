@@ -39,7 +39,8 @@ export default function PasscodeScreen({ onSubmit }) {
 
   return (
     <div className="min-h-full flex flex-col items-center justify-center px-8 py-12">
-      <h1 className="font-serif text-3xl text-maroon-deep mb-2">Daily Planner</h1>
+      <h1 className="font-serif text-5xl text-maroon-deep mb-1 tracking-tight">Novus</h1>
+      <p className="text-mute2 text-[10px] mb-8 tracking-[3px] uppercase">v 1.0</p>
       <p className="text-mute text-sm mb-10 tracking-wide">Enter your PIN to continue</p>
 
       <div className={cn('flex gap-3 mb-12 transition', error && 'animate-pulse')}>
