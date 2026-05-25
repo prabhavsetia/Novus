@@ -3,9 +3,23 @@ import { cn } from '../lib/classnames'
 
 const KEYS = ['1','2','3','4','5','6','7','8','9','',  '0','del']
 
+const taunts = [
+  'Nope~ try again!',
+  "That's not it... think again 😏",
+  'Wrong! Think about someone very special~',
+  "Hint: it's a birthday... but whose? 🤔",
+  "Still wrong?! Wow 💀",
+  "Okay this is embarrassing now...",
+  "I'll give you one more chance... maybe 😤",
+  "Google won't help you here 💅",
+  "It's literally YOUR birthday. YOURS. 😭",
+  "At this point just ask me directly lol",
+]
+
 export default function PasscodeScreen({ onSubmit }) {
   const [pin, setPin] = useState('')
   const [error, setError] = useState(false)
+  const [attempts, setAttempts] = useState(0)
 
   const press = useCallback((k) => {
     setError(false)
@@ -21,6 +35,7 @@ export default function PasscodeScreen({ onSubmit }) {
     if (pin.length === 6) {
       const ok = onSubmit(pin)
       if (!ok) {
+        setAttempts((a) => a + 1)
         setError(true)
         setTimeout(() => setPin(''), 400)
       }
@@ -58,6 +73,12 @@ export default function PasscodeScreen({ onSubmit }) {
           />
         ))}
       </div>
+
+      {error && attempts > 0 && (
+        <p className="text-maroon font-serif text-lg mb-6 animate-pulse text-center px-4">
+          {taunts[Math.min(attempts - 1, taunts.length - 1)]}
+        </p>
+      )}
 
       <div className="grid grid-cols-3 gap-3">
         {KEYS.map((k, i) => (
