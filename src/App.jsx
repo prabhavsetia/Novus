@@ -4,6 +4,7 @@ import PasscodeScreen from './screens/PasscodeScreen'
 import AppShell from './components/layout/AppShell'
 import TodayScreen from './screens/TodayScreen'
 import PlanScreen from './screens/PlanScreen'
+import ProgressScreen from './screens/ProgressScreen'
 
 function Placeholder({ name }) {
   return (
@@ -22,7 +23,7 @@ export default function App() {
       <Route element={<AppShell />}>
         <Route index element={<TodayScreen />} />
         <Route path="plan" element={<PlanScreen />} />
-        <Route path="progress" element={<Placeholder name="Progress" />} />
+        <Route path="progress" element={<ProgressScreen />} />
         <Route path="ai" element={<Placeholder name="AI" />} />
       </Route>
     </Routes>
