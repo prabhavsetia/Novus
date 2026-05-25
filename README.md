@@ -1,56 +1,108 @@
 # Novus
 
-> v1.0 — A mobile-first PWA for personal daily task management. SQL/Python/Data Analyst study companion.
+A mobile-first PWA for daily task planning, recurring routines, and AI-assisted scheduling. Built as a personal productivity tool during a data analyst career transition.
+
+![Novus screenshots](https://img.shields.io/badge/PWA-installable-8b1e30) ![React](https://img.shields.io/badge/React-18-8b1e30) ![Vite](https://img.shields.io/badge/Vite-5-8b1e30) ![Firebase](https://img.shields.io/badge/Firebase-Firestore-8b1e30) ![Gemini](https://img.shields.io/badge/AI-Gemini-8b1e30)
 
 ## Features
-- Daily task list with times
-- Week strip to plan ahead
-- Recurring templates (weekday/weekend routines)
-- Long-term goals
-- Progress chart + streak + history
-- Gemini AI assistant with memory
 
-## Tech
-React 18 · Vite · Tailwind · Firebase Firestore · Recharts · Gemini AI
+- **Daily timetable** — add tasks with start (and optional end) times, check them off as you go
+- **Week strip** — plan today and the rest of the current week in one view; past days auto-hide
+- **Recurring templates** — set up weekday or weekend routines that auto-populate matching days
+- **Long-term goals** — track multi-week objectives with descriptions and target dates
+- **Progress chart** — daily completion rate line graph, weekly average, week-over-week delta, streak counter, collapsible history
+- **AI assistant** — chat with Gemini that knows your goals, templates, today's tasks, and recent completion; suggests tasks you can add with one tap
+- **PWA** — installable on iPhone home screen, works offline, real-time cloud sync across devices
+- **Passcode lock** — simple 6-digit PIN entry, session persists in localStorage
 
-## Setup
-1. Copy `.env.example` to `.env.local` and fill in Firebase + Gemini keys
-2. `npm install`
-3. `npm run dev`
+## Design
 
-## Firebase Setup
+Editorial "Refined Journal" aesthetic — warm ivory background with subtle grain texture, deep maroon accents, Instrument Serif headings paired with DM Sans body text. Mobile-first with a responsive desktop layout that swaps the bottom nav for a left side rail on tablets and laptops.
 
-1. Create a Firebase project at https://console.firebase.google.com
-2. Add a Web app, copy the config snippet
-3. Enable **Firestore Database** (start in production mode)
-4. Enable **Authentication → Anonymous** (Sign-in method tab)
-5. In Firestore Rules tab, paste the contents of `firestore.rules` and publish
-6. Copy values into `.env.local`:
+## Tech Stack
 
-   ```
-   VITE_FIREBASE_API_KEY=...
-   VITE_FIREBASE_AUTH_DOMAIN=...
-   VITE_FIREBASE_PROJECT_ID=...
-   VITE_FIREBASE_STORAGE_BUCKET=...
-   VITE_FIREBASE_MESSAGING_SENDER_ID=...
-   VITE_FIREBASE_APP_ID=...
-   ```
+- React 18 · Vite · React Router
+- Tailwind CSS
+- Firebase Firestore (real-time sync via `onSnapshot`) + anonymous auth
+- Recharts (completion chart)
+- react-swipeable (swipe-to-reschedule)
+- @google/generative-ai (Gemini)
+- vite-plugin-pwa (service worker, offline cache)
 
-## Gemini Setup
+## Getting Started
 
-1. Get an API key at https://aistudio.google.com/app/apikey
-2. Add to `.env.local`:
+```bash
+git clone <this-repo>
+cd novus
+npm install
+cp .env.example .env.local
+# Fill in your Firebase + Gemini keys in .env.local (see below)
+npm run dev
+```
 
-   ```
-   VITE_GEMINI_API_KEY=...
-   ```
+Open the URL Vite prints and enter the PIN you set in `.env.local`.
 
-> ⚠️ The Gemini API key is exposed to the browser. This is acceptable for a personal-use app
-> behind a passcode wall, but in any multi-user context you'd proxy requests through a server.
+## Configuration
 
-## Deploy
+All environment variables are read from `.env.local` (gitignored). Use `.env.example` as a template.
 
-1. Push to GitHub
-2. Import the repo on https://vercel.com
-3. Add all `VITE_*` env vars in the Vercel project settings
-4. Vercel auto-builds on push
+| Variable | Description |
+| --- | --- |
+| `VITE_APP_PASSCODE` | 6-digit PIN you'll type at the lock screen |
+| `VITE_FIREBASE_API_KEY` | From Firebase console → Project Settings → Web app |
+| `VITE_FIREBASE_AUTH_DOMAIN` | Same source |
+| `VITE_FIREBASE_PROJECT_ID` | Same source |
+| `VITE_FIREBASE_STORAGE_BUCKET` | Same source |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | Same source |
+| `VITE_FIREBASE_APP_ID` | Same source |
+| `VITE_GEMINI_API_KEY` | From [Google AI Studio](https://aistudio.google.com/app/apikey) |
+
+### Firebase project setup
+
+1. Create a project at [console.firebase.google.com](https://console.firebase.google.com)
+2. Add a Web app and copy the `firebaseConfig` values into `.env.local`
+3. Enable **Firestore Database** (production mode)
+4. Enable **Authentication → Anonymous** sign-in
+5. In **Firestore → Rules**, paste the contents of [`firestore.rules`](./firestore.rules) and publish
+
+### Gemini setup
+
+Get an API key from [Google AI Studio](https://aistudio.google.com/app/apikey) and add it as `VITE_GEMINI_API_KEY`.
+
+> The Gemini key is exposed to the browser, which is acceptable for a single-user app behind a passcode. In a multi-user context, proxy requests through a server.
+
+## Deployment
+
+Deployed on Vercel:
+
+1. Push this repo to GitHub
+2. Import on [vercel.com](https://vercel.com) (auto-detects Vite)
+3. Add all `VITE_*` variables in **Project Settings → Environment Variables**
+4. Vercel rebuilds on every push to `main`
+
+The included `vercel.json` handles SPA routing.
+
+## Project Structure
+
+```
+src/
+├── App.jsx              # Auth gate + routes
+├── main.jsx             # React entry + router
+├── firebase.js          # Firestore + anonymous auth setup
+├── lib/                 # Date helpers, Gemini client, utilities
+├── hooks/               # Firestore data subscriptions (tasks/templates/goals/chat)
+├── components/
+│   ├── ui/              # Button, Card, ProgressRing, Segmented, Spinner
+│   ├── layout/          # AppShell, BottomNav, SideRail
+│   ├── tasks/           # TaskRow, TaskList, AddTaskForm, DatePickerSheet
+│   ├── week/            # WeekStrip
+│   ├── templates/       # TemplateCard, TemplateForm
+│   ├── goals/           # GoalCard, GoalForm
+│   ├── progress/        # CompletionChart, StatCards, StreakBar, HistorySection
+│   └── ai/              # ChatMessage, ChatInput, MemoryBar
+└── screens/             # PasscodeScreen, TodayScreen, PlanScreen, ProgressScreen, AIScreen
+```
+
+## License
+
+Personal project. Not currently licensed for redistribution.
