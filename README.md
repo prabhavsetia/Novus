@@ -105,4 +105,4 @@ src/
 
 ## License
 
-Personal project. Not currently licensed for redistribution.
+[MIT](./LICENSE) © Prabhav Setia
