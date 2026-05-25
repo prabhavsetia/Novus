@@ -8,6 +8,12 @@
   html, body, #root {
     height: 100%;
   }
+  /* iOS Safari: use dynamic viewport so the URL bar doesn't crop content */
+  @supports (height: 100dvh) {
+    html, body, #root {
+      height: 100dvh;
+    }
+  }
   body {
     @apply bg-ivory-2 text-ink font-sans antialiased;
     -webkit-tap-highlight-color: transparent;

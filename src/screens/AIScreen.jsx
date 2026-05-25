@@ -157,7 +157,7 @@ export default function AIScreen() {
         )}
       </div>
 
-      <div className="pt-2 pb-1">
+      <div className="pt-2 pb-[max(0.25rem,env(safe-area-inset-bottom))]">
         <ChatInput onSend={handleSend} disabled={thinking} />
       </div>
     </div>

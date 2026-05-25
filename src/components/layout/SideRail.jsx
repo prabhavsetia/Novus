@@ -10,7 +10,7 @@ const ITEMS = [
 
 export default function SideRail() {
   return (
-    <aside className="hidden md:flex flex-col w-[220px] lg:w-[260px] shrink-0 border-r border-black/5 bg-ivory px-5 py-8 sticky top-0 h-screen">
+    <aside className="hidden md:flex flex-col w-[220px] lg:w-[260px] shrink-0 border-r border-black/5 bg-ivory px-5 py-8 sticky top-0 h-[100dvh]">
       <div className="mb-10">
         <div className="font-serif text-3xl text-maroon-deep leading-none tracking-tight">Novus</div>
         <div className="text-[9px] tracking-[3px] uppercase text-mute2 mt-1.5">v 1.0</div>
