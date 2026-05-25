@@ -283,7 +283,7 @@ VITE_GEMINI_API_KEY=
 - [ ] **Step 2: Create `.env.local`** (user fills real values later, gitignored)
 
 ```
-VITE_APP_PASSCODE=290500
+VITE_APP_PASSCODE=000000
 VITE_FIREBASE_API_KEY=
 VITE_FIREBASE_AUTH_DOMAIN=
 VITE_FIREBASE_PROJECT_ID=
@@ -722,7 +722,7 @@ export default function App() {
 
 Run `npm run dev`. Open in browser.
 1. Type 6 wrong digits → dots should flash and clear.
-2. Type `290500` → should unlock and show "Unlocked".
+2. Type your PIN from `.env.local` → should unlock and show "Unlocked".
 3. Click "Log out" → should return to passcode screen.
 
 - [ ] **Step 4: Commit**

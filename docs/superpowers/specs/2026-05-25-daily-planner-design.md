@@ -5,7 +5,7 @@ A mobile-first PWA for personal daily task management. Users create timetable-st
 
 ## Access
 - 6-digit passcode screen (no usernames/signup)
-- Passcode stored as env var `VITE_APP_PASSCODE` (value: `290500`)
+- Passcode stored as env var `VITE_APP_PASSCODE` (set your own 6-digit PIN in `.env.local`)
 - Session persists in localStorage after successful entry
 - Works the same on any device — phone, tablet, laptop
 
