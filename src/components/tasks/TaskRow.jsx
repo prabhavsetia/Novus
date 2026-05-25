@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import { cn } from '../../lib/classnames'
-import { formatTime12 } from '../../lib/dates'
+import { formatTime12, formatTimeRange12 } from '../../lib/dates'
 
 export default function TaskRow({
   task,
@@ -79,10 +79,12 @@ export default function TaskRow({
         </div>
 
         <div className={cn(
-          'text-[11px] tabular flex-shrink-0',
+          'text-[11px] tabular flex-shrink-0 text-right leading-tight',
           isCurrent ? 'text-maroon-deep font-medium' : 'text-mute'
         )}>
-          {formatTime12(task.time)}
+          {task.endTime
+            ? formatTimeRange12(task.time, task.endTime)
+            : formatTime12(task.time)}
         </div>
       </div>
     </div>

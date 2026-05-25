@@ -54,11 +54,12 @@ export function useTasksInRange(startISO, endISO) {
 }
 
 export function useTaskActions() {
-  const createTask = useCallback(async ({ name, date, time, fromTemplate = null }) => {
+  const createTask = useCallback(async ({ name, date, time, endTime = null, fromTemplate = null }) => {
     return addDoc(collection(db, COL), {
       name,
       date,
       time,
+      endTime: endTime || null,
       completed: false,
       completedAt: null,
       fromTemplate,

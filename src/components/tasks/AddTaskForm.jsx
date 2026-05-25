@@ -4,22 +4,17 @@ import { todayISO } from '../../lib/dates'
 
 export default function AddTaskForm({ defaultDate = todayISO(), onSave, onCancel }) {
   const [name, setName] = useState('')
-  const [hour, setHour] = useState('7')
-  const [minute, setMinute] = useState('00')
-  const [period, setPeriod] = useState('PM')
+  const [time, setTime] = useState('19:00')
+  const [endTime, setEndTime] = useState('')
   const [date, setDate] = useState(defaultDate)
   const [saving, setSaving] = useState(false)
 
   async function handleSubmit(e) {
     e.preventDefault()
-    if (!name.trim()) return
+    if (!name.trim() || !time) return
     setSaving(true)
-    let h = parseInt(hour, 10)
-    if (period === 'PM' && h !== 12) h += 12
-    if (period === 'AM' && h === 12) h = 0
-    const time = `${String(h).padStart(2, '0')}:${minute.padStart(2, '0')}`
     try {
-      await onSave({ name: name.trim(), time, date })
+      await onSave({ name: name.trim(), time, endTime: endTime || null, date })
     } finally {
       setSaving(false)
     }
@@ -42,36 +37,24 @@ export default function AddTaskForm({ defaultDate = todayISO(), onSave, onCancel
             />
           </div>
 
-          <div>
-            <label className="text-[10px] tracking-[1.5px] uppercase text-mute mb-1.5 block">Time</label>
-            <div className="flex gap-2 items-center">
-              <select
-                value={hour}
-                onChange={(e) => setHour(e.target.value)}
-                className="flex-1 bg-ivory-3 border border-line rounded-xl px-3 py-3 text-sm text-ink text-center"
-              >
-                {Array.from({ length: 12 }, (_, i) => i + 1).map((h) => (
-                  <option key={h} value={h}>{String(h).padStart(2, '0')}</option>
-                ))}
-              </select>
-              <span className="text-mute2 text-xl">:</span>
-              <select
-                value={minute}
-                onChange={(e) => setMinute(e.target.value)}
-                className="flex-1 bg-ivory-3 border border-line rounded-xl px-3 py-3 text-sm text-ink text-center"
-              >
-                {['00', '15', '30', '45'].map((m) => (
-                  <option key={m} value={m}>{m}</option>
-                ))}
-              </select>
-              <select
-                value={period}
-                onChange={(e) => setPeriod(e.target.value)}
-                className="flex-1 bg-ivory-3 border border-line rounded-xl px-3 py-3 text-sm text-ink text-center"
-              >
-                <option value="AM">AM</option>
-                <option value="PM">PM</option>
-              </select>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-[10px] tracking-[1.5px] uppercase text-mute mb-1.5 block">Start</label>
+              <input
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                className="w-full bg-ivory-3 border border-line rounded-xl px-3.5 py-3 text-sm text-ink focus:outline-none focus:border-maroon"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] tracking-[1.5px] uppercase text-mute mb-1.5 block">End <span className="text-mute2 normal-case tracking-normal">(optional)</span></label>
+              <input
+                type="time"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                className="w-full bg-ivory-3 border border-line rounded-xl px-3.5 py-3 text-sm text-ink focus:outline-none focus:border-maroon"
+              />
             </div>
           </div>
 
@@ -87,7 +70,7 @@ export default function AddTaskForm({ defaultDate = todayISO(), onSave, onCancel
           </div>
 
           <div className="pt-2 space-y-2">
-            <Button type="submit" className="w-full" disabled={saving || !name.trim()}>
+            <Button type="submit" className="w-full" disabled={saving || !name.trim() || !time}>
               {saving ? 'Saving…' : 'Save Task'}
             </Button>
             <Button type="button" variant="ghost" className="w-full" onClick={onCancel}>

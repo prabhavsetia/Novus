@@ -72,6 +72,23 @@ export function formatTime12(hhmm) {
   return `${hour12}:${String(m).padStart(2, '0')} ${period}`
 }
 
+// Format a start/end time pair. If both share the same AM/PM, only show it once.
+// e.g. "07:00" + "08:30" → "7:00 — 8:30 AM"; "13:00" + "14:30" → "1:00 — 2:30 PM"
+export function formatTimeRange12(startHHmm, endHHmm) {
+  if (!startHHmm) return ''
+  if (!endHHmm) return formatTime12(startHHmm)
+  const [sh, sm] = startHHmm.split(':').map(Number)
+  const [eh, em] = endHHmm.split(':').map(Number)
+  const sp = sh >= 12 ? 'PM' : 'AM'
+  const ep = eh >= 12 ? 'PM' : 'AM'
+  const sh12 = ((sh + 11) % 12) + 1
+  const eh12 = ((eh + 11) % 12) + 1
+  const sStr = `${sh12}:${String(sm).padStart(2, '0')}`
+  const eStr = `${eh12}:${String(em).padStart(2, '0')}`
+  if (sp === ep) return `${sStr} – ${eStr} ${sp}`
+  return `${sStr} ${sp} – ${eStr} ${ep}`
+}
+
 // Sort tasks by their HH:mm time string ascending
 export function compareByTime(a, b) {
   return (a.time || '').localeCompare(b.time || '')

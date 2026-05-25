@@ -1,5 +1,5 @@
 import { cn } from '../../lib/classnames'
-import { formatTime12 } from '../../lib/dates'
+import { formatTime12, formatTimeRange12 } from '../../lib/dates'
 import { format, parseISO } from 'date-fns'
 
 function formatDateChip(iso) {
@@ -33,7 +33,7 @@ export default function ChatMessage({ message, onAddSuggestion }) {
               >
                 <div className="flex-1 text-[12px] text-ink truncate pr-2">{s.name}</div>
                 <div className="text-[10px] text-mute mr-2 whitespace-nowrap">
-                  {formatDateChip(s.resolvedDate)} · {formatTime12(s.time)}
+                  {formatDateChip(s.resolvedDate)} · {s.endTime ? formatTimeRange12(s.time, s.endTime) : formatTime12(s.time)}
                 </div>
                 <button
                   onClick={() => onAddSuggestion(s, i)}

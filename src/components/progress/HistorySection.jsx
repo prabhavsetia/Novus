@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { format, parseISO } from 'date-fns'
 import { cn } from '../../lib/classnames'
-import { formatTime12 } from '../../lib/dates'
+import { formatTime12, formatTimeRange12 } from '../../lib/dates'
 
 // tasksByDate: { 'YYYY-MM-DD': [task, task, ...] } — only past dates
 export default function HistorySection({ tasksByDate }) {
@@ -68,7 +68,7 @@ export default function HistorySection({ tasksByDate }) {
                         )}>
                           {t.name}
                         </div>
-                        <div className="text-[10px] text-mute tabular">{formatTime12(t.time)}</div>
+                        <div className="text-[10px] text-mute tabular">{t.endTime ? formatTimeRange12(t.time, t.endTime) : formatTime12(t.time)}</div>
                       </div>
                     ))}
                   </div>

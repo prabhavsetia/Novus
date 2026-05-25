@@ -97,6 +97,7 @@ export default function AIScreen() {
       await createTask({
         name: suggestion.name,
         time: suggestion.time,
+        endTime: suggestion.endTime || null,
         date: suggestion.resolvedDate || today,
       })
     } catch {

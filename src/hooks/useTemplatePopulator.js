@@ -34,6 +34,7 @@ export function useTemplatePopulator(dateISO, templates, ready = true) {
             batch.set(ref, {
               name: item.name,
               time: item.time,
+              endTime: item.endTime || null,
               date: dateISO,
               completed: false,
               completedAt: null,

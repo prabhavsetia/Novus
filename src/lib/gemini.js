@@ -17,9 +17,10 @@ RULES:
 - Be concise. Speak in short paragraphs.
 - When suggesting tasks, ALWAYS output them as a JSON block at the END of your response, like:
   \`\`\`json
-  {"suggestions": [{"name": "Window functions practice", "time": "19:00", "date": "today"}, ...]}
+  {"suggestions": [{"name": "Window functions practice", "time": "19:00", "endTime": "20:00", "date": "today"}, ...]}
   \`\`\`
-- "time" must be 24hr HH:mm format.
+- "time" must be 24hr HH:mm format (start time).
+- "endTime" is OPTIONAL — include it when you can estimate a duration (e.g. a 1-hour study block). Same 24hr HH:mm format. Omit when the task is short / point-in-time.
 - "date" must be either "today", "tomorrow", a weekday name ("monday", "tuesday", ...), or an explicit YYYY-MM-DD string.
 - If a request needs no task suggestions (e.g. the user is asking a question), omit the JSON block entirely.
 - Use the user's goals to make suggestions relevant. Reference their progress when motivating.
@@ -38,14 +39,18 @@ function buildContextBlock({ goals, templates, todayTasks, recentCompletion, tod
   if (templates?.length) {
     lines.push('\nRecurring templates:')
     for (const t of templates) {
-      const tasks = (t.tasks || []).map((x) => `${x.time} ${x.name}`).join('; ')
+      const tasks = (t.tasks || []).map((x) => {
+        const tr = x.endTime ? `${x.time}-${x.endTime}` : x.time
+        return `${tr} ${x.name}`
+      }).join('; ')
       lines.push(`- ${t.name} [${(t.days || []).join(',')}]: ${tasks}`)
     }
   }
   if (todayTasks?.length) {
     lines.push("\nToday's tasks:")
     for (const t of todayTasks) {
-      lines.push(`- [${t.completed ? 'x' : ' '}] ${t.time} ${t.name}`)
+      const tr = t.endTime ? `${t.time}-${t.endTime}` : t.time
+      lines.push(`- [${t.completed ? 'x' : ' '}] ${tr} ${t.name}`)
     }
   }
   if (recentCompletion) {

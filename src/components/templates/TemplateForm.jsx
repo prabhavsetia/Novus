@@ -15,7 +15,7 @@ const DAYS = [
 export default function TemplateForm({ initial, onSave, onCancel, onDelete }) {
   const [name, setName] = useState(initial?.name || '')
   const [days, setDays] = useState(initial?.days || ['mon', 'tue', 'wed', 'thu', 'fri'])
-  const [tasks, setTasks] = useState(initial?.tasks || [{ name: '', time: '09:00' }])
+  const [tasks, setTasks] = useState(initial?.tasks || [{ name: '', time: '09:00', endTime: '' }])
   const [saving, setSaving] = useState(false)
 
   function toggleDay(d) {
@@ -25,7 +25,7 @@ export default function TemplateForm({ initial, onSave, onCancel, onDelete }) {
     setTasks((prev) => prev.map((t, idx) => idx === i ? { ...t, ...patch } : t))
   }
   function addTaskRow() {
-    setTasks((prev) => [...prev, { name: '', time: '19:00' }])
+    setTasks((prev) => [...prev, { name: '', time: '19:00', endTime: '' }])
   }
   function removeTask(i) {
     setTasks((prev) => prev.filter((_, idx) => idx !== i))
@@ -34,7 +34,13 @@ export default function TemplateForm({ initial, onSave, onCancel, onDelete }) {
   async function handleSubmit(e) {
     e.preventDefault()
     if (!name.trim() || !days.length) return
-    const cleaned = tasks.filter((t) => t.name.trim() && t.time)
+    const cleaned = tasks
+      .filter((t) => t.name.trim() && t.time)
+      .map((t) => ({
+        name: t.name.trim(),
+        time: t.time,
+        endTime: t.endTime || null,
+      }))
     setSaving(true)
     try {
       await onSave({ name: name.trim(), days, tasks: cleaned })
@@ -85,27 +91,44 @@ export default function TemplateForm({ initial, onSave, onCancel, onDelete }) {
             <label className="text-[10px] tracking-[1.5px] uppercase text-mute mb-1.5 block">Tasks</label>
             <div className="space-y-2">
               {tasks.map((t, i) => (
-                <div key={i} className="flex gap-2">
-                  <input
-                    value={t.name}
-                    onChange={(e) => updateTask(i, { name: e.target.value })}
-                    placeholder="Task"
-                    className="flex-1 bg-ivory-3 border border-line rounded-lg px-3 py-2.5 text-sm text-ink"
-                  />
-                  <input
-                    type="time"
-                    value={t.time}
-                    onChange={(e) => updateTask(i, { time: e.target.value })}
-                    className="w-24 bg-ivory-3 border border-line rounded-lg px-2 py-2.5 text-sm text-ink"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeTask(i)}
-                    className="text-mute2 text-xl px-2"
-                    aria-label="Remove"
-                  >
-                    ×
-                  </button>
+                <div key={i} className="flex flex-col gap-1.5 p-2 bg-ivory-3/60 rounded-lg border border-line">
+                  <div className="flex gap-2 items-center">
+                    <input
+                      value={t.name}
+                      onChange={(e) => updateTask(i, { name: e.target.value })}
+                      placeholder="Task"
+                      className="flex-1 bg-white border border-line rounded-lg px-3 py-2 text-sm text-ink"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeTask(i)}
+                      className="text-mute2 text-xl px-1.5"
+                      aria-label="Remove"
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <div className="flex-1 flex items-center gap-1.5">
+                      <span className="text-[10px] uppercase tracking-wider text-mute w-8">Start</span>
+                      <input
+                        type="time"
+                        value={t.time}
+                        onChange={(e) => updateTask(i, { time: e.target.value })}
+                        className="flex-1 bg-white border border-line rounded-lg px-2 py-2 text-sm text-ink"
+                      />
+                    </div>
+                    <div className="flex-1 flex items-center gap-1.5">
+                      <span className="text-[10px] uppercase tracking-wider text-mute w-6">End</span>
+                      <input
+                        type="time"
+                        value={t.endTime || ''}
+                        onChange={(e) => updateTask(i, { endTime: e.target.value })}
+                        className="flex-1 bg-white border border-line rounded-lg px-2 py-2 text-sm text-ink"
+                        placeholder="—"
+                      />
+                    </div>
+                  </div>
                 </div>
               ))}
               <button

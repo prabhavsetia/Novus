@@ -1,5 +1,5 @@
 import Card from '../ui/Card'
-import { formatTime12 } from '../../lib/dates'
+import { formatTimeRange12 } from '../../lib/dates'
 
 const DAY_LABELS = { mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat', sun: 'Sun' }
 const ORDER = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
@@ -28,7 +28,7 @@ export default function TemplateCard({ template, onEdit }) {
         {preview.map((t, i) => (
           <div key={i} className="flex items-center gap-1.5">
             <span className="w-1 h-1 rounded-full bg-mute2 flex-shrink-0" />
-            <span>{formatTime12(t.time)} — {t.name}</span>
+            <span>{formatTimeRange12(t.time, t.endTime)} — {t.name}</span>
           </div>
         ))}
         {(template.tasks?.length || 0) > 3 && (
