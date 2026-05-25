@@ -51,12 +51,23 @@ export default function GoalForm({ initial, onSave, onCancel, onDelete }) {
             />
           </div>
           <div>
-            <label className="text-[10px] tracking-[1.5px] uppercase text-mute mb-1.5 block">Target Date (optional)</label>
+            <div className="flex items-baseline justify-between mb-1.5">
+              <label className="text-[10px] tracking-[1.5px] uppercase text-mute">Target Date <span className="text-mute2 normal-case tracking-normal">(optional)</span></label>
+              {targetDate && (
+                <button
+                  type="button"
+                  onClick={() => setTargetDate('')}
+                  className="text-[10px] text-maroon-deep tracking-wide"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
             <input
               type="date"
               value={targetDate}
               onChange={(e) => setTargetDate(e.target.value)}
-              className="w-full bg-ivory-3 border border-line rounded-xl px-3.5 py-3 text-sm text-ink focus:outline-none focus:border-maroon"
+              className="w-full bg-ivory-3 border border-line rounded-xl px-3.5 text-sm text-ink focus:outline-none focus:border-maroon"
             />
           </div>
           {initial && (

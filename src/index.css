@@ -30,3 +30,46 @@
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
+
+/* Normalize native date/time inputs across iOS Safari + desktop */
+@layer base {
+  input[type="date"],
+  input[type="time"] {
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.2;
+    min-height: 44px;
+    color: #2a2020;
+    background-color: #f0ebe6;
+    text-align: left;
+    /* iOS Safari sometimes vertically misaligns the value — explicit display fixes it */
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* iOS hides the placeholder when empty by default — let's keep things subtle */
+  input[type="date"]::-webkit-date-and-time-value,
+  input[type="time"]::-webkit-date-and-time-value {
+    text-align: left;
+  }
+
+  /* Tint the calendar / clock indicator to maroon */
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    opacity: 0.6;
+    cursor: pointer;
+    filter: invert(15%) sepia(63%) saturate(2400%) hue-rotate(330deg) brightness(75%) contrast(95%);
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator:hover,
+  input[type="time"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+  }
+
+  /* Empty-state placeholder color (Chrome/Edge) — looks like a normal placeholder */
+  input[type="date"]:not(.has-value):invalid::-webkit-datetime-edit,
+  input[type="time"]:not(.has-value):invalid::-webkit-datetime-edit {
+    color: #c0b8b0;
+  }
+}

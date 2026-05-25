@@ -115,7 +115,7 @@ export default function TemplateForm({ initial, onSave, onCancel, onDelete }) {
                         type="time"
                         value={t.time}
                         onChange={(e) => updateTask(i, { time: e.target.value })}
-                        className="flex-1 bg-white border border-line rounded-lg px-2 py-2 text-sm text-ink"
+                        className="flex-1 bg-white border border-line rounded-lg px-2 text-sm text-ink"
                       />
                     </div>
                     <div className="flex-1 flex items-center gap-1.5">
@@ -124,7 +124,7 @@ export default function TemplateForm({ initial, onSave, onCancel, onDelete }) {
                         type="time"
                         value={t.endTime || ''}
                         onChange={(e) => updateTask(i, { endTime: e.target.value })}
-                        className="flex-1 bg-white border border-line rounded-lg px-2 py-2 text-sm text-ink"
+                        className="flex-1 bg-white border border-line rounded-lg px-2 text-sm text-ink"
                         placeholder="—"
                       />
                     </div>

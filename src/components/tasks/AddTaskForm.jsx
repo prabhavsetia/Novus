@@ -44,7 +44,7 @@ export default function AddTaskForm({ defaultDate = todayISO(), onSave, onCancel
                 type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="w-full bg-ivory-3 border border-line rounded-xl px-3.5 py-3 text-sm text-ink focus:outline-none focus:border-maroon"
+                className="w-full bg-ivory-3 border border-line rounded-xl px-3.5 text-sm text-ink focus:outline-none focus:border-maroon"
               />
             </div>
             <div>
@@ -53,7 +53,7 @@ export default function AddTaskForm({ defaultDate = todayISO(), onSave, onCancel
                 type="time"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
-                className="w-full bg-ivory-3 border border-line rounded-xl px-3.5 py-3 text-sm text-ink focus:outline-none focus:border-maroon"
+                className="w-full bg-ivory-3 border border-line rounded-xl px-3.5 text-sm text-ink focus:outline-none focus:border-maroon"
               />
             </div>
           </div>
@@ -65,7 +65,7 @@ export default function AddTaskForm({ defaultDate = todayISO(), onSave, onCancel
               value={date}
               onChange={(e) => setDate(e.target.value)}
               min={todayISO()}
-              className="w-full bg-ivory-3 border border-line rounded-xl px-3.5 py-3 text-sm text-ink focus:outline-none focus:border-maroon"
+              className="w-full bg-ivory-3 border border-line rounded-xl px-3.5 text-sm text-ink focus:outline-none focus:border-maroon"
             />
           </div>
 

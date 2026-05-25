@@ -13,7 +13,7 @@ export default function DatePickerSheet({ onPick, onCancel }) {
           value={date}
           onChange={(e) => setDate(e.target.value)}
           min={todayISO()}
-          className="w-full bg-ivory-3 border border-line rounded-xl px-3.5 py-3 text-sm text-ink mb-4 focus:outline-none focus:border-maroon"
+          className="w-full bg-ivory-3 border border-line rounded-xl px-3.5 text-sm text-ink mb-4 focus:outline-none focus:border-maroon"
         />
         <div className="space-y-2">
           <Button className="w-full" onClick={() => onPick(date)}>Move Task</Button>
