@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth'
 import PasscodeScreen from './screens/PasscodeScreen'
 import AppShell from './components/layout/AppShell'
+import TodayScreen from './screens/TodayScreen'
 
 function Placeholder({ name }) {
   return (
@@ -18,7 +19,7 @@ export default function App() {
   return (
     <Routes>
       <Route element={<AppShell />}>
-        <Route index element={<Placeholder name="Today" />} />
+        <Route index element={<TodayScreen />} />
         <Route path="plan" element={<Placeholder name="Plan" />} />
         <Route path="progress" element={<Placeholder name="Progress" />} />
         <Route path="ai" element={<Placeholder name="AI" />} />
