@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- transparent background -->
-  <text x="256" y="340"
+  <text x="256" y="380"
         font-family="Didot, 'Big Caslon', 'Times New Roman', serif"
         font-style="italic"
+        font-size="440"
         fill="#8b1e30"
         text-anchor="middle"
-        letter-spacing="-6"><tspan font-size="360">N</tspan><tspan font-size="140" dx="-10">ovus</tspan></text>
+        letter-spacing="-6">N</text>
 </svg>
