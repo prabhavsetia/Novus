@@ -5,15 +5,7 @@ import AppShell from './components/layout/AppShell'
 import TodayScreen from './screens/TodayScreen'
 import PlanScreen from './screens/PlanScreen'
 import ProgressScreen from './screens/ProgressScreen'
-
-function Placeholder({ name }) {
-  return (
-    <div className="py-10 text-center">
-      <h2 className="font-serif text-2xl text-ink">{name}</h2>
-      <p className="text-mute text-sm mt-2">Coming soon</p>
-    </div>
-  )
-}
+import AIScreen from './screens/AIScreen'
 
 export default function App() {
   const { authed, tryUnlock } = useAuth()
@@ -24,7 +16,7 @@ export default function App() {
         <Route index element={<TodayScreen />} />
         <Route path="plan" element={<PlanScreen />} />
         <Route path="progress" element={<ProgressScreen />} />
-        <Route path="ai" element={<Placeholder name="AI" />} />
+        <Route path="ai" element={<AIScreen />} />
       </Route>
     </Routes>
   )
